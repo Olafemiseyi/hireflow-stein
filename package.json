@@ -1,65 +1,9 @@
 {
-  "name": "stein-core",
-  "version": "0.0.2",
-  "homepage": "https://steinhq.com/",
-  "description": "Use Google Sheets as a no-setup data store",
-  "main": "index.js",
-  "scripts": {
-    "start": "pm2 start bin/pm2.config.js --env production",
-    "kill": "pm2 kill",
-    "dev": "cross-env NODE_ENV=development nodemon index.js"
-  },
-  "bin": {
-    "stein": "./bin/start-stein.js"
-  },
-  "keywords": [
-    "google sheets",
-    "database",
-    "REST",
-    "api",
-    "form"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/SteinHQ/Stein.git"
-  },
-  "author": "Stein <hello@steinhq.com>",
-  "license": "MIT",
+  "name": "hireflow-stein",
+  "version": "1.0.0",
+  "description": "Stein API for HireFlow job board to manage Google Sheets data",
+  "main": "netlify/functions/stein.js",
   "dependencies": {
-    "basic-auth": "^2.0.1",
-    "bcrypt": "^3.0.6",
-    "bluebird": "^3.5.1",
-    "body-parser": "^1.18.2",
-    "connect-mongo": "^2.0.3",
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.4",
-    "dotenv": "^8.0.0",
-    "ejs": "^2.6.1",
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "google-auth-library": "^2.0.0",
-    "googleapis": "^34.0.0",
-    "mongoose": "^5.3.0",
-    "ow": "^0.12.0",
-    "passport": "^0.4.0",
-    "passport-google-oauth": "2.0.0",
-    "pm2": "^3.5.1",
-    "request": "^2.88.0"
-  },
-  "devDependencies": {
-    "cross-env": "^5.2.0",
-    "errorhandler": "^1.5.0",
-    "nodemon": "^1.18.10",
-    "response-time": "^2.3.2"
-  },
-  "eslintConfig": {
-    "rules": {
-      "no-unused-vars": [
-        "error",
-        {
-          "argsIgnorePattern": "next"
-        }
-      ]
-    }
+    "googleapis": "^134.0.0"
   }
 }
