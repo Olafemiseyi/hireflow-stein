@@ -1,13 +1,13 @@
-// assets/js/script.js
-let jobs = []; // Store all jobs
-let displayedJobs = 0; // Track displayed jobs
-const jobsPerLoad = 6; // Load 6 jobs at a time
+// assets/js/job-offer.js
+let jobs = [];
+let displayedJobs = 0;
+const jobsPerLoad = 6;
 const jobContainer = document.getElementById('job-container');
 const loading = document.getElementById('loading');
 
 async function fetchJobs() {
   try {
-    const response = await fetch('https://hireflow-stein.netlify.app/.netlify/functions/stein?sheet=Jobs');
+    const response = await fetch('/.netlify/functions/stein?sheet=Jobs');
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     jobs = await response.json();
     if (!Array.isArray(jobs) || jobs.length === 0) {
@@ -52,22 +52,19 @@ function renderJobs() {
   loading.style.display = displayedJobs >= jobs.length ? 'none' : 'block';
 }
 
-// Infinite scroll
 function handleScroll() {
   if (loading.style.display === 'none') return;
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
   if (scrollTop + clientHeight >= scrollHeight - 100) {
     loading.style.display = 'block';
-    setTimeout(renderJobs, 1000); // Simulate loading delay
+    setTimeout(renderJobs, 1000);
   }
 }
 
-// Initialize
 fetchJobs();
 window.addEventListener('scroll', handleScroll);
 
-// Manual toggle fallback (if Bootstrap JS fails)
-document.querySelector('.btn-outline-accent').addEventListener('click', () => {
+document.getElementById('toggleFiltersBtn').addEventListener('click', () => {
   const collapse = document.getElementById('filtersCollapse');
   collapse.classList.toggle('show');
 });
