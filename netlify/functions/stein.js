@@ -1,6 +1,5 @@
 const { google } = require('googleapis');
 
-// Generate a random 5-character alphanumeric Job ID (e.g., M12T5)
 function generateRandomJobId() {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let jobId = '';
@@ -12,7 +11,6 @@ function generateRandomJobId() {
 
 exports.handler = async (event) => {
   try {
-    // Initialize Google Sheets API with authentication
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -21,11 +19,15 @@ exports.handler = async (event) => {
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
     const sheets = google.sheets({ version: 'v4', auth });
-
-    // Get sheet name from query parameter (default: Jobs)
     const sheetName = event.queryStringParameters?.sheet || 'Jobs';
 
-    // Handle GET request
+    const headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*', // Allow all origins (or specify 'https://remarkable-sprite-11ea16.netlify.app')
+      'Access-Control-Allow-Methods': 'GET, POST',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
     if (event.httpMethod === 'GET') {
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
@@ -33,26 +35,21 @@ exports.handler = async (event) => {
       });
       return {
         statusCode: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(response.data.values || []),
       };
     }
 
-    // Handle POST request with random Job ID
     if (event.httpMethod === 'POST') {
       if (sheetName !== 'Jobs') {
         return {
           statusCode: 400,
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify({ error: 'POST only supported for Jobs sheet' }),
         };
       }
-
       const body = JSON.parse(event.body);
-      // Generate random Job ID
       body['Job ID'] = generateRandomJobId();
-
-      // Explicitly order values to match Jobs tab columns
       const columns = [
         'Job ID',
         'Job Title',
@@ -66,36 +63,30 @@ exports.handler = async (event) => {
         'Posted Date',
         'Deadline'
       ];
-      const values = columns.map(col => body[col] || ''); // Use empty string for missing fields
-
-      // Append new row
+      const values = columns.map(col => body[col] || '');
       await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: `${sheetName}!A:K`, // Explicitly target columns A-K
+        range: `${sheetName}!A:K`,
         valueInputOption: 'RAW',
-        requestBody: {
-          values: [values],
-        },
+        requestBody: { values: [values] },
       });
-
       return {
         statusCode: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ message: 'Row added successfully', jobId: body['Job ID'] }),
       };
     }
 
-    // Handle unsupported methods
     return {
       statusCode: 405,
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   } catch (error) {
     console.error('Error:', error);
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({ error: 'Failed to process request', details: error.message }),
     };
   }
