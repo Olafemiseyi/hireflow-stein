@@ -1,8 +1,18 @@
 const { google } = require('googleapis');
 
-exports.handler = async (event, context) => {
+// Generate a random 5-character alphanumeric Job ID (e.g., M12T5)
+function generateRandomJobId() {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let jobId = '';
+  for (let i = 0; i < 5; i++) {
+    jobId += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return jobId;
+}
+
+exports.handler = async (event) => {
   try {
-    // Initialize Google Sheets API with read/write scope
+    // Initialize Google Sheets API with authentication
     const auth = new google.auth.GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -10,64 +20,66 @@ exports.handler = async (event, context) => {
       },
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
-
     const sheets = google.sheets({ version: 'v4', auth });
-    const sheetId = process.env.GOOGLE_SHEET_ID;
-    const sheetName = event.queryStringParameters?.sheet || 'Jobs'; // Default to Jobs; supports Users
 
+    // Get sheet name from query parameter (default: Jobs)
+    const sheetName = event.queryStringParameters?.sheet || 'Jobs';
+
+    // Handle GET request
     if (event.httpMethod === 'GET') {
-      // Fetch data from specified sheet
       const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: sheetId,
-        range: `${sheetName}!A1:ZZ`, // Broader range for flexibility
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: `${sheetName}!A:Z`,
       });
+      return {
+        statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(response.data.values || []),
+      };
+    }
 
-      const rows = response.data.values || [];
-      if (rows.length === 0) {
+    // Handle POST request with random Job ID
+    if (event.httpMethod === 'POST') {
+      if (sheetName !== 'Jobs') {
         return {
-          statusCode: 200,
-          body: JSON.stringify([]),
+          statusCode: 400,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ error: 'POST only supported for Jobs sheet' }),
         };
       }
 
-      const headers = rows[0];
-      const data = rows.slice(1).map(row => {
-        const item = {};
-        headers.forEach((header, index) => {
-          item[header] = row[index] || ''; // Handle empty cells
-        });
-        return item;
+      const body = JSON.parse(event.body);
+      // Generate random Job ID
+      body['Job ID'] = generateRandomJobId();
+
+      // Append new row
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: `${sheetName}!A:Z`,
+        valueInputOption: 'RAW',
+        requestBody: {
+          values: [Object.values(body)], // Convert object to array in correct column order
+        },
       });
 
       return {
         statusCode: 200,
-        body: JSON.stringify(data),
-      };
-    } else if (event.httpMethod === 'POST') {
-      // Add new row to specified sheet
-      const body = JSON.parse(event.body || '{}');
-      const values = Object.values(body); // Assumes body matches sheet columns
-      await sheets.spreadsheets.values.append({
-        spreadsheetId: sheetId,
-        range: `${sheetName}!A:A`, // Append to first column
-        valueInputOption: 'RAW',
-        resource: { values: [values] },
-      });
-
-      return {
-        statusCode: 201,
-        body: JSON.stringify({ message: 'Row added successfully' }),
-      };
-    } else {
-      return {
-        statusCode: 405,
-        body: JSON.stringify({ error: 'Method not allowed' }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'Row added successfully', jobId: body['Job ID'] }),
       };
     }
+
+    // Handle unsupported methods
+    return {
+      statusCode: 405,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Method not allowed' }),
+    };
   } catch (error) {
-    console.error('API Error:', error.message);
+    console.error('Error:', error);
     return {
       statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ error: 'Failed to process request', details: error.message }),
     };
   }
