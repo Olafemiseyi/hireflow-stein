@@ -1,78 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HireFlow - Find Your Dream Job</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-  <link href="/assets/css/style.css" rel="stylesheet">
-</head>
-<body>
-  <section class="jobs-section">
-    <div class="container">
-      <h2 class="section-title text-center">Find Your Dream Job</h2>
-      <p class="section-subtitle text-center">Explore opportunities across Nigeria and beyond</p>
-      <!-- Search Bar -->
-      <div class="search-bar mb-5">
-        <form class="d-flex flex-column flex-md-row gap-2 justify-content-center">
-          <input type="text" class="form-control" id="search-title" placeholder="Search for jobs..." aria-label="Search">
-          <input type="text" class="form-control" id="search-location" placeholder="Location..." aria-label="Location">
-          <select class="form-control" id="search-job-type" aria-label="Job Type">
-            <option value="">Job Type</option>
-            <option value="Full-Time">Full Time</option>
-            <option value="Part-Time">Part Time</option>
-            <option value="Contract">Contract</option>
-          </select>
-          <button class="btn btn-search" type="submit">Search</button>
-        </form>
-      </div>
-      <!-- Sidebar and Job Listings -->
-      <div class="row">
-        <!-- Sidebar -->
-        <div class="col-lg-3 col-md-4 mb-4">
-          <div class="sidebar">
-            <button id="toggleFiltersBtn" class="btn btn-outline-accent d-md-none mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
-              <i class="fas fa-filter"></i> Toggle Filters
-            </button>
-            <div class="collapse d-md-block" id="filtersCollapse">
-              <h4 class="sidebar-title">Filters</h4>
-              <div class="filter-group">
-                <h5>Job Type</h5>
-                <label><input type="checkbox" name="job-type" value="Full-Time"> Full Time</label>
-                <label><input type="checkbox" name="job-type" value="Part-Time"> Part Time</label>
-                <label><input type="checkbox" name="job-type" value="Contract"> Contract</label>
-              </div>
-              <div class="filter-group">
-                <h5>Location</h5>
-                <label><input type="checkbox" name="location" value="Lagos"> Lagos</label>
-                <label><input type="checkbox" name="location" value="Abuja"> Abuja</label>
-                <label><input type="checkbox" name="location" value="Remote"> Remote</label>
-              </div>
-              <div class="filter-group">
-                <h5>Salary Range</h5>
-                <label><input type="checkbox" name="salary" value="0-50000"> ₦0 - ₦50,000</label>
-                <label><input type="checkbox" name="salary" value="50000-100000"> ₦50,000 - ₦100,000</label>
-                <label><input type="checkbox" name="salary" value="100000+"> ₦100,000+</label>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HireFlow - Find Your Dream Job</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <section class="jobs-section">
+      <div class="container">
+        <h2 class="section-title text-center">Find Your Dream Job</h2>
+        <p class="section-subtitle text-center">Explore opportunities across Nigeria and beyond</p>
+        <!-- Search Bar -->
+        <div class="search-bar mb-5">
+          <form class="d-flex flex-column flex-md-row gap-2 justify-content-center">
+            <input type="text" class="form-control" id="search-title" placeholder="Search for jobs..." aria-label="Search">
+            <input type="text" class="form-control" id="search-location" placeholder="Location..." aria-label="Location">
+            <select class="form-control" id="search-job-type" aria-label="Job Type">
+              <option value="">Job Type</option>
+              <option value="Full-Time">Full Time</option>
+              <option value="Part-Time">Part Time</option>
+              <option value="Contract">Contract</option>
+              <option value="Internship">Internship</option>
+            </select>
+            <button class="btn btn-search" type="submit">Search</button>
+          </form>
+        </div>
+        <!-- Sidebar and Job Listings -->
+        <div class="row">
+          <!-- Sidebar -->
+          <div class="col-lg-3 col-md-4 mb-4">
+            <div class="sidebar">
+              <button id="toggleFiltersBtn" class="btn btn-outline-accent d-md-none mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse" aria-expanded="false" aria-controls="filtersCollapse">
+                <i class="fas fa-filter"></i> Toggle Filters
+              </button>
+              <div class="collapse d-md-block" id="filtersCollapse">
+                <h4 class="sidebar-title">Filters</h4>
+                <div class="filter-group">
+                  <h5>Job Type</h5>
+                  <label><input type="checkbox" name="job-type" value="Full-Time"> Full Time</label>
+                  <label><input type="checkbox" name="job-type" value="Part-Time"> Part Time</label>
+                  <label><input type="checkbox" name="job-type" value="Contract"> Contract</label>
+                  <label><input type="checkbox" name="job-type" value="Internship"> Internship</label>
+                </div>
+                <div class="filter-group">
+                  <h5>Location</h5>
+                  <label><input type="checkbox" name="location" value="Lagos"> Lagos</label>
+                  <label><input type="checkbox" name="location" value="Abuja"> Abuja</label>
+                  <label><input type="checkbox" name="location" value="Remote"> Remote</label>
+                  <label><input type="checkbox" name="location" value="Ondo"> Ondo</label>
+                </div>
+                <div class="filter-group">
+                  <h5>Salary Range</h5>
+                  <label><input type="checkbox" name="salary" value="0-50000"> ₦0 - ₦50,000</label>
+                  <label><input type="checkbox" name="salary" value="50000-100000"> ₦50,000 - ₦100,000</label>
+                  <label><input type="checkbox" name="salary" value="100000+"> ₦100,000+</label>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Job Listings -->
-        <div class="col-lg-9 col-md-8">
-          <div id="job-container" class="row g-4"></div>
-          <div id="loading" class="text-center mt-4" style="display: none;">
-            <p>Loading more jobs...</p>
+          <!-- Job Listings -->
+          <div class="col-lg-9 col-md-8">
+            <div id="job-container" class="row g-4"></div>
+            <div id="loading" class="text-center mt-4" style="display: none;">
+              <p>Loading more jobs...</p>
+            </div>
           </div>
         </div>
+        <!-- CTA -->
+        <div class="text-center mt-5">
+          <a href="/post-job.html" class="btn btn-post-job">Post a Job</a>
+        </div>
       </div>
-      <!-- CTA -->
-      <div class="text-center mt-5">
-        <a href="/post-job.html" class="btn btn-post-job">Post a Job</a>
-      </div>
-    </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/job-offer.js"></script>
-</body>
-</html>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/job-offer.js"></script>
+  </body>
+  </html>
