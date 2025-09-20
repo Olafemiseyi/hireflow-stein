@@ -52,13 +52,29 @@ exports.handler = async (event) => {
       // Generate random Job ID
       body['Job ID'] = generateRandomJobId();
 
+      // Explicitly order values to match Jobs tab columns
+      const columns = [
+        'Job ID',
+        'Job Title',
+        'Company',
+        'Location',
+        'Job Type',
+        'Salary',
+        'Description',
+        'Apply Link',
+        'Logo URL',
+        'Posted Date',
+        'Deadline'
+      ];
+      const values = columns.map(col => body[col] || ''); // Use empty string for missing fields
+
       // Append new row
       await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: `${sheetName}!A:Z`,
+        range: `${sheetName}!A:K`, // Explicitly target columns A-K
         valueInputOption: 'RAW',
         requestBody: {
-          values: [Object.values(body)], // Convert object to array in correct column order
+          values: [values],
         },
       });
 
