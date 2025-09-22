@@ -47,7 +47,10 @@ exports.handler = async (event) => {
           body: JSON.stringify({ error: 'POST only supported for Jobs sheet' }),
         };
       }
-      const body = JSON.parse(event.body);
+      
+      // FIX: Get the first object from the parsed body array.
+      const body = JSON.parse(event.body)[0];
+
       body['Job ID'] = generateRandomJobId();
       const columns = [
         'Job ID',
