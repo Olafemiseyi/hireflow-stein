@@ -16,14 +16,38 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Validate environment variables
+    if (!process.env.GOOGLE_SHEET_ID) {
+      throw new Error('GOOGLE_SHEET_ID environment variable is missing');
+    }
+    if (!process.env.GOOGLE_CREDENTIALS) {
+      throw new Error('GOOGLE_CREDENTIALS environment variable is missing');
+    }
+
+    let credentials;
+    try {
+      credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    } catch (e) {
+      throw new Error('Invalid GOOGLE_CREDENTIALS JSON: ' + e.message);
+    }
+
     const auth = new google.auth.GoogleAuth({
-      credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS),
+      credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
     const sheets = google.sheets({ version: 'v4', auth });
 
     if (event.httpMethod === 'POST') {
-      const bodyArray = JSON.parse(event.body);
+      let bodyArray;
+      try {
+        bodyArray = JSON.parse(event.body);
+        if (!Array.isArray(bodyArray)) {
+          throw new Error('POST body must be an array');
+        }
+      } catch (e) {
+        throw new Error('Invalid POST body: ' + e.message);
+      }
+
       for (const body of bodyArray) {
         const columns = ['Job ID', 'Job Title', 'Company', 'Location', 'Job Type', 'Salary', 'Description', 'Apply Link', 'Logo URL', 'Posted Date', 'Extra'];
         const values = columns.map(col => body[col] || '');
@@ -45,13 +69,23 @@ exports.handler = async (event, context) => {
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: 'Jobs!A:K'
     });
+
+    const values = response.data.values || [];
+    if (!values.length || values.length === 1) { // Only header row
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify([])
+      };
+    }
+
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(response.data.values.slice(1))
+      body: JSON.stringify(values.slice(1)) // Skip header
     };
   } catch (error) {
-    console.error('Stein API error:', error);
+    console.error('Stein API error:', error.message, error.stack);
     return {
       statusCode: error.response?.status || 500,
       headers,
