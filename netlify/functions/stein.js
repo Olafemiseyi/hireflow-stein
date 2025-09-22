@@ -20,10 +20,9 @@ exports.handler = async (event) => {
     });
     const sheets = google.sheets({ version: 'v4', auth });
     const sheetName = event.queryStringParameters?.sheet || 'Jobs';
-
     const headers = {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*', // Allow all origins (or specify 'https://remarkable-sprite-11ea16.netlify.app')
+      'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
