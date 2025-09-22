@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Job_Board[1][1]</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Outfit&amp;display=swap">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/index/homepage.css">
+    <link rel="stylesheet" href="assets/css/job-offer/jobs.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/submit-job.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+
+<body><nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="/index.html">
+                <span class="brand-icon ion-ios-briefcase"></span>
+                <span class="brand-name">HireFlow</span>
+            </a>
+            
+            <div class="d-none d-lg-flex align-items-center">
+                <ul class="navbar-nav me-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/job-offers.html">Job Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/submit-job.html">Submit a Job</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ai-cv.html">AI CV/CL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about.html">About</a>
+                    </li>
+                </ul>
+                <a href="/contact-us.html" class="btn btn-green-accent">Contact Us</a>
+            </div>
+
+            <a href="/contact-us.html" class="btn btn-green-accent d-lg-none">Contact Us</a>
+        </div>
+    </nav>
+
+    <div class="navigation d-lg-none">
+        <ul>
+            <li class="list active">
+                <a href="/index.html">
+                    <span class="icon ion-android-home"></span>
+                    <span class="text">Home</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/job-offers.html">
+                    <span class="icon ion-ios-briefcase"></span>
+                    <span class="text">Job Offers</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/submit-job.html">
+                    <span class="icon ion-ios-compose"></span>
+                    <span class="text">Submit a Job</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/ai-cv.html">
+                    <span class="icon ion-ios-lightbulb"></span>
+                    <span class="text">AI CV/CL</span>
+                </a>
+            </li>
+            <li class="list">
+                <a href="/about.html">
+                    <span class="icon ion-ios-information"></span>
+                    <span class="text">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HireFlow - Post a Job</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">Post a Job</h1>
+      <form id="post-job-form" class="row g-3">
+        <div class="col-md-6">
+          <label for="job-title" class="form-label">Job Title</label>
+          <input type="text" class="form-control" id="job-title" required>
+        </div>
+        <div class="col-md-6">
+          <label for="company" class="form-label">Company</label>
+          <input type="text" class="form-control" id="company" required>
+        </div>
+        <div class="col-md-6">
+          <label for="location" class="form-label">Location</label>
+          <input type="text" class="form-control" id="location" required>
+        </div>
+        <div class="col-md-6">
+          <label for="job-type" class="form-label">Job Type</label>
+          <select class="form-control" id="job-type" required>
+            <option value="">Select Job Type</option>
+            <option value="Full-Time">Full Time</option>
+            <option value="Part-Time">Part Time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="salary" class="form-label">Salary</label>
+          <input type="text" class="form-control" id="salary">
+        </div>
+        <div class="col-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" rows="5"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label for="apply-link" class="form-label">Apply Link</label>
+          <input type="url" class="form-control" id="apply-link">
+        </div>
+        <div class="col-md-6">
+          <label for="logo-url" class="form-label">Logo URL</label>
+          <input type="url" class="form-control" id="logo-url">
+        </div>
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary">Submit Job</button>
+        </div>
+      </form>
+      <div id="form-message" class="text-center mt-3"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById('post-job-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = {
+          'Job Title': document.getElementById('job-title').value,
+          'Company': document.getElementById('company').value,
+          'Location': document.getElementById('location').value,
+          'Job Type': document.getElementById('job-type').value,
+          'Salary': document.getElementById('salary').value,
+          'Description': document.getElementById('description').value,
+          'Apply Link': document.getElementById('apply-link').value,
+          'Logo URL': document.getElementById('logo-url').value,
+          'Posted Date': new Date().toISOString().split('T')[0], // YYYY-MM-DD
+          'Deadline': '' // Optional
+        };
+        try {
+          const response = await fetch('/.netlify/functions/stein?sheet=Jobs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+          if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+          const result = await response.json();
+          document.getElementById('form-message').innerHTML = `<p class="text-success">Job posted successfully! Job ID: ${result.jobId}</p>`;
+          document.getElementById('post-job-form').reset();
+        } catch (error) {
+          console.error('Error:', error);
+          document.getElementById('form-message').innerHTML = '<p class="text-danger">Failed to post job. Please try again.</p>';
+        }
+      });
+    </script>
+  </body>
+  </html>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/job-offer.js"></script>
+    <script src="assets/js/JS/navbar.js"></script>
+    <script src="assets/js/submit-job.js"></script>
+    <script src="assets/js/toggle.js"></script>
+</body>
+
+</html>

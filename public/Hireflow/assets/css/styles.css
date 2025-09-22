@@ -1,0 +1,25 @@
+/* General Styles for the whole page to create a sticky footer */
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* This main element will grow to push the footer down */
+
+main {
+  flex-grow: 1;
+}
+
+/* Styles for the body on medium screens and smaller (lg and below) */
+
+@media (max-width: 991px) {
+  html, body {
+    background-color: var(--secondary-color) !important;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding-bottom: 70px;
+  }
+}
+
